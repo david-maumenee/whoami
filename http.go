@@ -13,7 +13,7 @@ func main() {
         port = "8080"
     }
 
-    backEndURL = os.Getenv("BACK_END_URL")
+    backEndURL := os.Getenv("BACK_END_URL")
     if backEndURL == "" {
         backEndURL = "http://backend"
     }
