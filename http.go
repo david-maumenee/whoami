@@ -5,6 +5,7 @@ import (
   "fmt"
   "net/http"
   "log"
+  "io/ioutil"
 )
 
 func main() {
@@ -25,10 +26,13 @@ func main() {
     hostname, _ := os.Hostname()
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-        resp, err := http.Get(backEndURL)
+        resp, _ := http.Get(backEndURL)
+        
+        defer resp.Body.Close()
+        body, _ := ioutil.ReadAll(resp.Body)
 
-        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s | %s \n", hostname, resp)
- 	    fmt.Fprintf(w, "I'm %s - backend response : %s | %s \n", hostname, resp, err)
+        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s | %s \n", body)
+ 	    fmt.Fprintf(w, "I'm %s - backend response : %s | %s \n", hostname, body)
     })
 
 
