@@ -27,8 +27,8 @@ func main() {
 
         resp, err := http.Get(backEndURL)
 
-        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s \n", hostname, resp)
- 	    fmt.Fprintf(w, "I'm %s - backend response : %s \n", hostname, resp)
+        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s | %s \n", hostname, resp)
+ 	    fmt.Fprintf(w, "I'm %s - backend response : %s | %s \n", hostname, resp, err)
     })
 
 
