@@ -29,7 +29,7 @@ func main() {
                
         out, err := exec.Command("curl", backEndURL).Output()
         if err != nil {
-            body := string(err);
+            body := errerr.Error();
         } else {
             body := string(out);
         }
