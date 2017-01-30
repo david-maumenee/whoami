@@ -20,7 +20,7 @@ func main() {
     }
 
 
-    fmt.Fprintf(os.Stdout, "Listening on :%s\n", port)
+    fmt.Fprintf(os.Stdout, "Listening on :%s, call %s\n", port, backEndURL)
 
 
     hostname, _ := os.Hostname()
@@ -29,11 +29,10 @@ func main() {
                
         out, err := exec.Command("curl", backEndURL).Output()
         if err != nil {
-            fmt.Println("Error!")
-            log.Fatal(err)
+            body := string(err);
+        } else {
+            body := string(out);
         }
-        body := string(out);
-
 
 
         fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s \n", hostname, body)
