@@ -6,6 +6,7 @@ import (
   "net/http"
   "log"
   "io/ioutil"
+  "exec"
 )
 
 func main() {
@@ -28,8 +29,14 @@ func main() {
 
         resp, _ := http.Get(backEndURL)
         
-        defer resp.Body.Close()
-        body, _ := ioutil.ReadAll(resp.Body)
+        out, err := exec.Command("curl", backEndURL).Output()
+        if err != nil {
+            fmt.Println("Error!")
+            log.Fatal(err)
+        }
+        body := string(out);
+
+
 
         fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s \n", hostname, body)
  	    fmt.Fprintf(w, "I'm %s - backend response : %s \n", hostname, body)
