@@ -26,8 +26,7 @@ func main() {
     hostname, _ := os.Hostname()
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-        resp, _ := http.Get(backEndURL)
-        
+               
         out, err := exec.Command("curl", backEndURL).Output()
         if err != nil {
             fmt.Println("Error!")
