@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
 	bash \
 	curl
 ADD . /app
+RUN chmod a+x /app/counter.sh
 WORKDIR /app
 RUN go build -o http
 ENV PORT 8000
