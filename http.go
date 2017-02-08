@@ -19,14 +19,12 @@ func main() {
         backEndURL = "http://backend"
     }
 
-
     fmt.Fprintf(os.Stdout, "Listening on :%s, call %s\n", port, backEndURL)
-
 
     hostname, _ := os.Hostname()
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
-               
+
         out, err := exec.Command("curl", backEndURL).Output()
         body := ""
         if err != nil {
@@ -34,8 +32,8 @@ func main() {
         } else {
             body = string(out);
         }
-        
-        out_config, err_config := exec.Command("more", "/app/config/conf.txt").Output()
+
+        out_config, err_config := exec.Command("cat", "/app/config/conf.txt").Output()
         config := ""
         if err != nil {
             config = err_config.Error();
@@ -43,7 +41,7 @@ func main() {
             config = string(out_config);
         }
 
-        out_count, err_count := exec.Command("/app/counter.sh").Output()
+        out_count, err_count := exec.Command("bash", "/app/counter.sh").Output()
         count := ""
         if err != nil {
             count = err_count.Error();
@@ -51,8 +49,9 @@ func main() {
             count = string(out_count);
         }
 
-        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s - config : %s - count : %s\n", hostname, body, config, count)
- 	    fmt.Fprintf(w, "I'm %s - backend response : %s - config : %s - count : %s\n", hostname, body, config, count)
+        fmt.Fprintf(os.Stdout,  "I'm %s - backend response : %s - config : %s - count : %s\n", hostname, body, out_config, out_count)
+        fmt.Fprintf(w,          "I'm %s - backend response : %s\n- config : %s\n- count : %s\n", hostname, body, out_config, out_count)
+        fmt.Fprintf(os.Stdout,  "config : %s - count : %s\n", config, count)
     })
 
 
