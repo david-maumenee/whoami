@@ -34,10 +34,25 @@ func main() {
         } else {
             body = string(out);
         }
+        
+        out_config, err_config := exec.Command("more", "/app/config/conf.txt").Output()
+        config := ""
+        if err != nil {
+            config = err_config.Error();
+        } else {
+            config = string(out_config);
+        }
 
+        out_count, err_count := exec.Command("/app/counter.sh").Output()
+        count := ""
+        if err != nil {
+            count = out_count.Error();
+        } else {
+            count = string(out_count);
+        }
 
-        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s \n", hostname, body)
- 	    fmt.Fprintf(w, "I'm %s - backend response : %s \n", hostname, body)
+        fmt.Fprintf(os.Stdout, "I'm %s - backend response : %s - config : %s - count : %s\n", hostname, body, config, count)
+ 	    fmt.Fprintf(w, "I'm %s - backend response : %s - config : %s - count : %s\n", hostname, body, config, count)
     })
 
 
