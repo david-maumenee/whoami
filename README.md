@@ -1,10 +1,19 @@
 whoami
 ======
 
-Simple HTTP docker service that prints it's container ID
+Fork of jwilder/whoami an HTTP docker service that prints it's container ID
 
-    $ docker run -d -p 8000:8000 --name whoami -t jwilder/whoami
-    736ab83847bb12dddd8b09969433f3a02d64d5b0be48f7a5c59a594e3a6a3541
+Display the hostname of the current container and display the result of a backend URL defined by the environment variable named BACK_END_URL
+
+If you configure BACK_END_URL to jwilder/whoami you can verify the internal load balancing of our CaaS
+
+
+    $ cd docker-compose
+    $ docker-compose up -d
     
+    OR with swarm
+    $ docker swarm init
+    $ docker stack deploy --compose-file docker-compose.yml  whoami
+
     $ curl $(hostname --all-ip-addresses | awk '{print $1}'):8000
-    I'm 736ab83847bb
+    

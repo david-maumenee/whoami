@@ -41,7 +41,7 @@ func main() {
             config = string(out_config);
         }
 
-        out_count, err_count := exec.Command("bash", "/app/counter.sh").Output()
+        out_count, err_count := exec.Command("sh", "/app/counter.sh").Output()
         count := ""
         if err != nil {
             count = err_count.Error();
